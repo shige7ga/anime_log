@@ -4,9 +4,17 @@
 
 <%= render @user %>
 
-<div>
-  <%= link_to "編集", edit_user_path(@user) %> |
-  <%= link_to "一覧", users_path %>
+<h2>ログ一覧</h2>
+<hr>
+<% @posts.each do |post| %>
+  <h3>タイトル：<%= post.title %></h3>
+  <p>コメント：<%= post.comment %></p>
+  <hr>
+<% end %>
 
-  <%= button_to "削除", @user, method: :delete, data: { turbo: false } %>
-</div>
+<% if (session[:user_id] == @user.id) %>
+  <div>
+    <%= link_to "ユーザー編集", edit_user_path(@user) %> |
+    <%= button_to "ユーザー削除", user_path(@user), method: :delete, data: { turbo: false } %>
+  </div>
+<% end %>
