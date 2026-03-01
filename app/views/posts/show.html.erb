@@ -1,0 +1,12 @@
+<p style="color: green"><%= notice %></p>
+
+<h1><%= @page_title %></h1>
+
+<%= render @post %>
+
+<div>
+  <%= link_to "編集", edit_post_path(@post) %> |
+  <%= link_to "一覧", posts_path %>
+
+  <%= button_to "削除", @post, method: :delete, data: { turbo: false } %>
+</div>
