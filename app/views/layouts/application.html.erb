@@ -16,23 +16,30 @@
     <nav class="navbar navbar-dark bg-dark">
       <a class="navbar-brand mb-0 h1" href="/">アニメログ</a>
       <ul class="nav justify-content-end">
-        <li class="nav-item">
-          <%= link_to "ログ一覧", posts_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ログ登録", new_post_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ユーザー一覧", users_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "ユーザー登録", new_user_path, class: "nav-link" %>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">ログイン</a>
-        </li>
-
-
+        <% if current_user.present? %>
+          <li class="nav-item">
+            <%= link_to current_user.name, user_path(current_user), class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログ一覧", posts_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログ登録", new_post_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ユーザー一覧", users_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログアウト", logout_path, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "ユーザー登録", new_user_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "ログイン", new_login_path, class: "nav-link" %>
+          </li>
+        <% end %>
       </ul>
     </nav>
   </header>

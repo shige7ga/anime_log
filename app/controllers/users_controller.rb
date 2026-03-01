@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to @user, notice: 'ユーザーを新規登録しました'
     else
       render :new
@@ -22,6 +23,7 @@ class UsersController < ApplicationController
 
   def show
     @page_title = 'ユーザー詳細'
+    @posts = @user.posts
   end
 
   def edit
@@ -40,10 +42,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    Post.where(user_id: @user.id).destroy_all
     @user.destroy
+    session.delete(:user_id)
 
     respond_to do |format|
-      format.html {redirect_to users_url, notice: 'ユーザーを削除しました'}
+      format.html {redirect_to '/', notice: 'ユーザーを削除しました'}
       format.json { head :no_content }
     end
   end
@@ -55,6 +59,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
 end

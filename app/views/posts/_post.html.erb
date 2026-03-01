@@ -1,11 +1,12 @@
 <div id="<%= dom_id post %>">
-  <p>
+  <h2>
     <strong>タイトル:</strong>
-    <%= post.title %>
-  </p>
+    <%= link_to post.title, post %>
+  </h2>
 
   <p>
     <strong>内容:</strong>
-    <%= post.comment %>
+    <%= post.comment %> - <%= link_to User.find(post.user_id).name, user_path(post.user_id) %>
   </p>
+
 </div>

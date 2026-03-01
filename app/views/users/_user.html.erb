@@ -4,8 +4,10 @@
     <%= user.name %>
   </p>
 
-  <p>
-    <strong>メールアドレス:</strong>
-    <%= user.email %>
-  </p>
+  <% if (session[:user_id] == user.id)%>
+    <p>
+      <strong>メールアドレス:</strong>
+      <%= user.email %>
+    </p>
+  <% end %>
 </div>
